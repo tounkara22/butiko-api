@@ -1,0 +1,29 @@
+{
+  "name": "butiko-api",
+  "version": "1.0.0",
+  "description": "Back-end services for Boutigo app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Ibrahima Tounkara",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
+    "connect-mongodb-session": "^3.1.1",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "form-data": "^4.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "mailgun.js": "^8.0.6",
+    "mongodb": "^4.13.0",
+    "mongoose": "^6.8.1",
+    "nodemailer": "^6.8.0"
+  }
+}
