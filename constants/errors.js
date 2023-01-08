@@ -1,4 +1,4 @@
-const AuthErrors = {
+exports.AuthErrors = {
   EMAIL_INVALID: "EMAIL_INVALID",
   EMAIL_NOT_FOUND: "EMAIL_NOT_FOUND",
   PASSWORD_INCORRECT: "PASSWORD_INCORRECT",
@@ -9,4 +9,6 @@ const AuthErrors = {
   USER_ALREADY_VERIFIED: "USER_ALREADY_VERIFIED",
 };
 
-module.exports = AuthErrors;
+exports.UserError = {
+  USER_DOES_NOT_EXIST: "USER_DOES_NOT_EXIST",
+};

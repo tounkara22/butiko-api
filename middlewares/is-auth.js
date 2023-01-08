@@ -3,7 +3,6 @@ const { SECRET_JWT_TOKEN } = require("../constants/vars");
 
 module.exports = (req, _, next) => {
   const headers = req.get("Authorization");
-  console.log(req.get("Authorization"));
   if (!headers) {
     const error = new Error("NOT_AUTHENTICATED");
     error.status = 401;

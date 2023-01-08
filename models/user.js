@@ -39,6 +39,10 @@ const profileSchema = new Schema({
   },
 });
 
+const businessSchema = new Schema({
+  name: String,
+});
+
 const userSchema = new Schema(
   {
     verified: {
@@ -50,6 +54,7 @@ const userSchema = new Schema(
     resetTokenExpiration: Date,
     credential: credentialSchema,
     profile: profileSchema,
+    businesses: [businessSchema],
   },
   { timestamps: true }
 );
