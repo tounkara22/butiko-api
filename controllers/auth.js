@@ -51,11 +51,15 @@ const handleLogin = (req, res) => {
                 userId: userDoc._id.toString(),
               },
               SECRET_JWT_TOKEN,
-              { expiresIn: "1h" }
+              { expiresIn: "5h" }
             );
             res.status(201).json({
               token,
               userId: userDoc._id.toString(),
+              firstName: userDoc.profile.firstName,
+              lastName: userDoc.profile.lastName,
+              email: userDoc.credential.email,
+              businesses: userDoc.businesses || [],
             });
           }
         })
@@ -97,6 +101,7 @@ const handleSignup = (req, res) => {
           lastName,
           dateOfBirth: new Date(dateOfBirth),
         },
+        businesses: [],
       });
       return user.save();
     })
@@ -165,7 +170,22 @@ const handleActivate = (req, res) => {
     .catch((e) => handleErrors(e, res));
 };
 
+const handleIsAuthenticated = (req, res) => {
+  console.log("***heheheheh***", req.get("Authorization"));
+  res.send({ text: "text" });
+  // if (req.userId) {
+  //   res.status(201).json({ userId: req.userId });
+  // } else {
+  //   const error = new Error();
+  //   error.message = "NOT_AUTHENTICATED";
+  //   error.status = 401;
+
+  //   throw error;
+  // }
+};
+
 // Exports
 exports.postSignup = handleSignup;
 exports.postLogin = handleLogin;
 exports.postActivate = handleActivate;
+exports.isAuthenticated = handleIsAuthenticated;

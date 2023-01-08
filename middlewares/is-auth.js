@@ -1,7 +1,9 @@
 const jwt = require("jsonwebtoken");
+const { SECRET_JWT_TOKEN } = require("../constants/vars");
 
 module.exports = (req, _, next) => {
   const headers = req.get("Authorization");
+  console.log(req.get("Authorization"));
   if (!headers) {
     const error = new Error("NOT_AUTHENTICATED");
     error.status = 401;
@@ -14,8 +16,10 @@ module.exports = (req, _, next) => {
   try {
     decodedToken = jwt.verify(token, SECRET_JWT_TOKEN);
   } catch (err) {
-    err.status = 500;
-    throw err;
+    const error = new Error();
+    error.message = "TOKEN_EXPIRED";
+    error.status = 500;
+    throw error;
   }
 
   if (!decodedToken) {

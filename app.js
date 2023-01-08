@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const clientsRoute = require("./routes/clients");
 const authRoute = require("./routes/auth");
 const notFoundRoute = require("./routes/404");
+const userRoute = require("./routes/user");
 
 // middlewares
 const setHeaders = require("./middlewares/set-headers");
@@ -23,9 +24,9 @@ app.use(setHeaders);
 
 // 2. protected routes
 app.use("/clients", isAuth, clientsRoute);
+app.use("/user", userRoute);
 
 // 3. unprotected routes
-
 app.use("/auth", authRoute);
 app.use(notFoundRoute);
 
