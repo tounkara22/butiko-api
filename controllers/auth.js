@@ -39,7 +39,6 @@ const handleLogin = (req, res) => {
         .compare(password, userDoc?.credential?.password)
         .then((isMatch) => {
           if (!isMatch) {
-            // error: PASSWORD_INCORRECT
             const error = new Error();
             error.message = AuthErrors.PASSWORD_INCORRECT;
             error.status = 401;
@@ -51,8 +50,9 @@ const handleLogin = (req, res) => {
                 userId: userDoc._id.toString(),
               },
               SECRET_JWT_TOKEN,
-              { expiresIn: "5h" }
+              { expiresIn: "1h" }
             );
+            console.log("token", token);
             res.status(201).json({
               token,
               userId: userDoc._id.toString(),
@@ -63,7 +63,9 @@ const handleLogin = (req, res) => {
             });
           }
         })
-        .catch((e) => handleErrors(e, res));
+        .catch((e) => {
+          handleErrors(e, res);
+        });
     })
     .catch((e) => handleErrors(e, res));
 };
@@ -131,7 +133,7 @@ const handleSignup = (req, res) => {
           .catch((err) => console.log("Error occurred", err));
       });
     })
-    .catch((err) => console.log("Error occurred", err));
+    .catch((e) => handleErrors(e, res));
 };
 
 const handleActivate = (req, res) => {
@@ -170,22 +172,6 @@ const handleActivate = (req, res) => {
     .catch((e) => handleErrors(e, res));
 };
 
-const handleIsAuthenticated = (req, res) => {
-  console.log("***heheheheh***", req.get("Authorization"));
-  res.send({ text: "text" });
-  // if (req.userId) {
-  //   res.status(201).json({ userId: req.userId });
-  // } else {
-  //   const error = new Error();
-  //   error.message = "NOT_AUTHENTICATED";
-  //   error.status = 401;
-
-  //   throw error;
-  // }
-};
-
-// Exports
 exports.postSignup = handleSignup;
 exports.postLogin = handleLogin;
 exports.postActivate = handleActivate;
-exports.isAuthenticated = handleIsAuthenticated;
