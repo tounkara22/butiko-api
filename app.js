@@ -2,6 +2,7 @@
 const bodyParser = require("body-parser");
 const express = require("express");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 // routes
 const clientsRoute = require("./routes/clients");
@@ -28,9 +29,23 @@ app.use("/user", userRoute);
 
 // 3. unprotected routes
 app.use("/auth", authRoute);
+
+// 4. Error handler
+app.use((error, _, res, next) => {
+  if (error != null) {
+    const message = error?.message || 'GENERIC_ERROR';
+    const status = error?.status || 500;
+    res.status(status).send({ error: message });
+  } else {
+    next();
+  }
+});
+
+// 5. Not found
 app.use(notFoundRoute);
 
-// 4. server start
+
+// Server
 mongoose
   .connect(MONGODB_URI)
   .then(() => {
